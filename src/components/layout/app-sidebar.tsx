@@ -11,11 +11,10 @@ import {
   SidebarMenuButton,
   SidebarFooter,
 } from '@/components/ui/sidebar';
-import { Home, BrainCircuit, Lightbulb, FileText, Archive, ShieldCheck, Settings, LogOut } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { BrainCircuit, Lightbulb, FileText, Archive, ShieldCheck, Settings, LogOut } from 'lucide-react'; // Removed Home icon as it's not needed
 
 const navItems = [
-  { href: '/', label: 'Home', icon: Home },
+  // { href: '/', label: 'Home', icon: Home }, // Removed Home from navItems
   { href: '/project-ideas', label: 'Project Ideas', icon: Lightbulb },
   { href: '/proposal-assistant', label: 'Proposal Assistant', icon: FileText },
   { href: '/past-projects', label: 'Past Projects', icon: Archive },
@@ -42,7 +41,9 @@ export function AppSidebar() {
               <Link href={item.href} passHref legacyBehavior>
                 <SidebarMenuButton
                   asChild
-                  isActive={pathname === item.href || (item.href !== "/" && item.href !== "/project-ideas" && pathname.startsWith(item.href))}
+                  // Adjusted isActive logic slightly due to Home removal, 
+                  // ensuring other items still highlight correctly.
+                  isActive={pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href))}
                   tooltip={{ children: item.label }}
                   className="justify-start"
                 >
