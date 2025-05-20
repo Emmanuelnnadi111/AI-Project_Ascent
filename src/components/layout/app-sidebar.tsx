@@ -11,8 +11,7 @@ import {
   SidebarMenuButton,
   SidebarFooter,
 } from '@/components/ui/sidebar';
-import { BrainCircuit, Lightbulb, FileText, Archive, ShieldCheck, Settings, LogOut } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+import { BrainCircuit, Lightbulb, FileText, Archive, ShieldCheck, Settings } from 'lucide-react';
 
 const navItems = [
   { href: '/project-ideas', label: 'Project Ideas', icon: Lightbulb },
@@ -23,15 +22,6 @@ const navItems = [
 
 export function AppSidebar() {
   const pathname = usePathname();
-  const { toast } = useToast();
-
-  const handleLogoutClick = () => {
-    toast({
-      title: "Logout Mock",
-      description: "You have been 'logged out'. This is a demo.",
-    });
-  };
-
 
   return (
     <>
@@ -81,12 +71,7 @@ export function AppSidebar() {
               </SidebarMenuButton>
             </Link>
           </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton tooltip={{ children: "Logout" }} className="justify-start" onClick={handleLogoutClick}>
-              <LogOut className="h-5 w-5" />
-              <span className="group-data-[collapsible=icon]:hidden">Logout</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+          {/* Logout button removed from here */}
         </SidebarMenu>
       </SidebarFooter>
     </>
