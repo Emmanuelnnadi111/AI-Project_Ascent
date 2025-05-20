@@ -70,7 +70,7 @@ export default function HomePage() {
                 <p className="text-md text-primary-foreground/80">Tools designed for academic excellence.</p>
             </div>
         </div>
-        <div className="flex justify-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
           <Link href="/project-ideas" passHref>
             <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
               Find Project Ideas <Lightbulb className="ml-2 h-5 w-5" />
@@ -91,7 +91,7 @@ export default function HomePage() {
         description="Discover the tools that will make your project development smoother and more efficient."
       />
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 mb-16">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
         <FeatureCard
           title="Project Idea Generator"
           description="Stuck on what to work on? Get AI-powered project suggestions tailored to your interests and department."

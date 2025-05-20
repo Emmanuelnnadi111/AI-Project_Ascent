@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from 'react';
@@ -78,7 +79,7 @@ export default function PlagiarismCheckerPage() {
                     <FormControl>
                       <Textarea
                         placeholder="Paste your project proposal introduction, abstract, or any section you want to check..."
-                        className="resize-y min-h-[200px]"
+                        className="resize-y min-h-[150px] sm:min-h-[200px]"
                         {...field}
                       />
                     </FormControl>
