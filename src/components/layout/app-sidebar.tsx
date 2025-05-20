@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from 'next/link';
@@ -10,10 +11,11 @@ import {
   SidebarMenuButton,
   SidebarFooter,
 } from '@/components/ui/sidebar';
-import { BrainCircuit, Lightbulb, FileText, Archive, ShieldCheck, Settings, LogOut } from 'lucide-react';
+import { Home, BrainCircuit, Lightbulb, FileText, Archive, ShieldCheck, Settings, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const navItems = [
+  { href: '/', label: 'Home', icon: Home },
   { href: '/project-ideas', label: 'Project Ideas', icon: Lightbulb },
   { href: '/proposal-assistant', label: 'Proposal Assistant', icon: FileText },
   { href: '/past-projects', label: 'Past Projects', icon: Archive },
@@ -26,7 +28,7 @@ export function AppSidebar() {
   return (
     <>
       <SidebarHeader className="p-4">
-        <Link href="/project-ideas" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
           <BrainCircuit className="h-8 w-8 text-primary" />
           <h1 className="text-xl font-semibold text-foreground group-data-[collapsible=icon]:hidden">
             Project Ascent
@@ -40,7 +42,7 @@ export function AppSidebar() {
               <Link href={item.href} passHref legacyBehavior>
                 <SidebarMenuButton
                   asChild
-                  isActive={pathname === item.href || (item.href !== "/project-ideas" && pathname.startsWith(item.href))}
+                  isActive={pathname === item.href || (item.href !== "/" && item.href !== "/project-ideas" && pathname.startsWith(item.href))}
                   tooltip={{ children: item.label }}
                   className="justify-start"
                 >

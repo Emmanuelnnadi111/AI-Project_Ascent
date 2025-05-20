@@ -87,3 +87,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .hover\:shadow-primary\/20:hover {
+    box-shadow: 0 4px 14px 0 hsl(var(--primary) / 0.15);
+  }
+}
