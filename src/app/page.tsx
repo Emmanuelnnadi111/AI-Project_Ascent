@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { PageHeader } from '@/components/page-header';
 import { Lightbulb, FileText, Archive, ShieldCheck, ArrowRight, BrainCircuit } from 'lucide-react';
 import Image from 'next/image';
-import { Separator } from '@/components/ui/separator'; // Added this line
+import { Separator } from '@/components/ui/separator';
 
 interface FeatureCardProps {
   title: string;
@@ -62,7 +62,7 @@ export default function HomePage() {
                 alt="Students collaborating on a project"
                 layout="fill"
                 objectFit="cover"
-                data-ai-hint="students collaboration"
+                data-ai-hint="academic project"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
              <div className="absolute bottom-6 left-6 text-left">
