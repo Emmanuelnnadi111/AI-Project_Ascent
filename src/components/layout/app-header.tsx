@@ -13,6 +13,7 @@ const getPageTitle = (pathname: string): string => {
   if (pathname.startsWith('/proposal-assistant')) return 'Proposal Assistant';
   if (pathname.startsWith('/past-projects')) return 'Past Projects Archive';
   if (pathname.startsWith('/plagiarism-checker')) return 'Plagiarism Checker';
+  if (pathname.startsWith('/settings')) return 'Settings';
   return 'Project Ascent';
 };
 

@@ -25,13 +25,6 @@ export function AppSidebar() {
   const pathname = usePathname();
   const { toast } = useToast();
 
-  const handleSettingsClick = () => {
-    toast({
-      title: "Feature Not Implemented",
-      description: "Settings page is coming soon!",
-    });
-  };
-
   const handleLogoutClick = () => {
     toast({
       title: "Logout Mock",
@@ -74,10 +67,19 @@ export function AppSidebar() {
       <SidebarFooter className="p-2 border-t border-sidebar-border">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton tooltip={{ children: "Settings" }} className="justify-start" onClick={handleSettingsClick}>
-              <Settings className="h-5 w-5" />
-              <span className="group-data-[collapsible=icon]:hidden">Settings</span>
-            </SidebarMenuButton>
+            <Link href="/settings" passHref legacyBehavior>
+              <SidebarMenuButton 
+                asChild 
+                isActive={pathname === '/settings'}
+                tooltip={{ children: "Settings" }} 
+                className="justify-start"
+              >
+                <a>
+                  <Settings className="h-5 w-5" />
+                  <span className="group-data-[collapsible=icon]:hidden">Settings</span>
+                </a>
+              </SidebarMenuButton>
+            </Link>
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton tooltip={{ children: "Logout" }} className="justify-start" onClick={handleLogoutClick}>
