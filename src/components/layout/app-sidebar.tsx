@@ -11,10 +11,10 @@ import {
   SidebarMenuButton,
   SidebarFooter,
 } from '@/components/ui/sidebar';
-import { BrainCircuit, Lightbulb, FileText, Archive, ShieldCheck, Settings, LogOut } from 'lucide-react'; // Removed Home icon as it's not needed
+import { BrainCircuit, Lightbulb, FileText, Archive, ShieldCheck, Settings, LogOut } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 const navItems = [
-  // { href: '/', label: 'Home', icon: Home }, // Removed Home from navItems
   { href: '/project-ideas', label: 'Project Ideas', icon: Lightbulb },
   { href: '/proposal-assistant', label: 'Proposal Assistant', icon: FileText },
   { href: '/past-projects', label: 'Past Projects', icon: Archive },
@@ -23,6 +23,22 @@ const navItems = [
 
 export function AppSidebar() {
   const pathname = usePathname();
+  const { toast } = useToast();
+
+  const handleSettingsClick = () => {
+    toast({
+      title: "Feature Not Implemented",
+      description: "Settings page is coming soon!",
+    });
+  };
+
+  const handleLogoutClick = () => {
+    toast({
+      title: "Logout Mock",
+      description: "You have been 'logged out'. This is a demo.",
+    });
+  };
+
 
   return (
     <>
@@ -41,8 +57,6 @@ export function AppSidebar() {
               <Link href={item.href} passHref legacyBehavior>
                 <SidebarMenuButton
                   asChild
-                  // Adjusted isActive logic slightly due to Home removal, 
-                  // ensuring other items still highlight correctly.
                   isActive={pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href))}
                   tooltip={{ children: item.label }}
                   className="justify-start"
@@ -60,13 +74,13 @@ export function AppSidebar() {
       <SidebarFooter className="p-2 border-t border-sidebar-border">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton tooltip={{ children: "Settings" }} className="justify-start">
+            <SidebarMenuButton tooltip={{ children: "Settings" }} className="justify-start" onClick={handleSettingsClick}>
               <Settings className="h-5 w-5" />
               <span className="group-data-[collapsible=icon]:hidden">Settings</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton tooltip={{ children: "Logout" }} className="justify-start">
+            <SidebarMenuButton tooltip={{ children: "Logout" }} className="justify-start" onClick={handleLogoutClick}>
               <LogOut className="h-5 w-5" />
               <span className="group-data-[collapsible=icon]:hidden">Logout</span>
             </SidebarMenuButton>

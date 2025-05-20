@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from 'react';
@@ -13,7 +14,7 @@ import { PageHeader } from '@/components/page-header';
 import { generateProjectIdeas, type GenerateProjectIdeasOutput } from '@/ai/flows/generate-project-ideas';
 import type { ProjectIdea } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Wand2 } from 'lucide-react';
+import { Loader2, Wand2, ArrowRight } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 
 const formSchema = z.object({
@@ -24,12 +25,22 @@ const formSchema = z.object({
 type ProjectIdeasFormValues = z.infer<typeof formSchema>;
 
 function ProjectIdeaCard({ idea }: { idea: ProjectIdea }) {
+  const { toast } = useToast();
+
+  const handleExploreFurther = () => {
+    toast({
+      title: "Start Your Research!",
+      description: "This idea is a great starting point. Use the explanation and research gap to begin your detailed investigation and literature review.",
+      duration: 7000, // Longer duration for this informative toast
+    });
+  };
+
   return (
-    <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
       <CardHeader>
         <CardTitle className="text-lg text-primary">{idea.title}</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex-grow">
         <div className="space-y-3">
           <div>
             <h4 className="font-semibold text-sm mb-1">Explanation:</h4>
@@ -42,7 +53,9 @@ function ProjectIdeaCard({ idea }: { idea: ProjectIdea }) {
         </div>
       </CardContent>
       <CardFooter>
-        <Button variant="outline" size="sm">Explore Further</Button>
+        <Button variant="outline" size="sm" onClick={handleExploreFurther}>
+          Explore Further <ArrowRight className="ml-2 h-4 w-4" />
+        </Button>
       </CardFooter>
     </Card>
   );

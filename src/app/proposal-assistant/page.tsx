@@ -1,9 +1,9 @@
 // src/app/proposal-assistant/page.tsx
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, useFormContext, FormProvider } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -12,10 +12,22 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { PageHeader } from '@/components/page-header';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, FilePenLine, BookOpen, SearchCode, Brain, Download, Save } from 'lucide-react';
+import { Loader2, FilePenLine, BookOpen, SearchCode, Brain, Download, Save, Trash2, FolderOpen } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 
 import { createChapterOutline, type CreateChapterOutlineOutput, type CreateChapterOutlineInput } from '@/ai/flows/create-chapter-outline';
 import { generateFullProposal, type GenerateFullProposalOutput, type GenerateFullProposalInput } from '@/ai/flows/generate-full-proposal';
@@ -44,6 +56,8 @@ const suggestCitationsSchema = z.object({
   textSection: z.string().min(50, { message: "Text section must be at least 50 characters." }).max(5000),
 });
 type SuggestCitationsFormValues = z.infer<typeof suggestCitationsSchema>;
+
+const LOCAL_STORAGE_PROPOSAL_DRAFT_KEY = 'projectAscentProposalDraft';
 
 // Skeletons
 function SectionSkeleton() {
@@ -128,6 +142,26 @@ export default function ProposalAssistantPage() {
     defaultValues: { textSection: '' },
   });
 
+  useEffect(() => {
+    const savedDraft = localStorage.getItem(LOCAL_STORAGE_PROPOSAL_DRAFT_KEY);
+    if (savedDraft) {
+      try {
+        const parsedDraft = JSON.parse(savedDraft) as GenerateFullProposalOutput;
+        setFullProposalResult(parsedDraft);
+        // Optionally, pre-fill form if you stored input values too
+        // fullProposalForm.reset({ projectTitle: parsedDraft.titleFromInput || '', ... });
+        toast({
+          title: "Draft Loaded",
+          description: "Your previously saved proposal draft has been loaded.",
+        });
+      } catch (error) {
+        console.error("Failed to parse saved draft:", error);
+        localStorage.removeItem(LOCAL_STORAGE_PROPOSAL_DRAFT_KEY); // Clear corrupted draft
+      }
+    }
+  }, []);
+
+
   async function onChapterOutlineSubmit(values: ChapterOutlineFormValues) {
     setIsLoadingChapterOutline(true);
     setChapterOutlineResult(null);
@@ -185,11 +219,34 @@ export default function ProposalAssistantPage() {
   }
   
   const handleDownload = () => {
-    toast({ title: "Download (Not Implemented)", description: "This feature is for demonstration." });
+    toast({ title: "Download (Not Implemented)", description: "This feature is for demonstration purposes." });
   }
+
   const handleSaveDraft = () => {
-     toast({ title: "Save Draft (Not Implemented)", description: "This feature is for demonstration." });
+    if (fullProposalResult) {
+      localStorage.setItem(LOCAL_STORAGE_PROPOSAL_DRAFT_KEY, JSON.stringify(fullProposalResult));
+      toast({
+        title: "Draft Saved!",
+        description: "Your full proposal draft has been saved to local storage.",
+      });
+    } else {
+      toast({
+        title: "Nothing to Save",
+        description: "Please generate a proposal first.",
+        variant: "destructive",
+      });
+    }
   }
+
+  const handleClearDraft = () => {
+    localStorage.removeItem(LOCAL_STORAGE_PROPOSAL_DRAFT_KEY);
+    setFullProposalResult(null); // Clear the currently displayed result as well
+    fullProposalForm.reset(); // Optionally reset the form
+    toast({
+      title: "Draft Cleared",
+      description: "Your saved proposal draft has been removed from local storage.",
+    });
+  };
 
 
   return (
@@ -260,7 +317,7 @@ export default function ProposalAssistantPage() {
           <Card className="shadow-md">
             <CardHeader>
               <CardTitle>Generate Full Proposal Draft</CardTitle>
-              <CardDescription>Provide details to generate a comprehensive proposal draft.</CardDescription>
+              <CardDescription>Provide details to generate a comprehensive proposal draft. Your drafts can be saved and loaded using local storage.</CardDescription>
             </CardHeader>
             <CardContent>
               <Form {...fullProposalForm}>
@@ -303,9 +360,26 @@ export default function ProposalAssistantPage() {
                   </div>
                 ))}
               </CardContent>
-              <CardFooter className="gap-2">
+              <CardFooter className="flex flex-wrap gap-2">
+                <Button onClick={handleSaveDraft} variant="default"><Save className="mr-2 h-4 w-4" /> Save Draft</Button>
+                 <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="destructive" ><Trash2 className="mr-2 h-4 w-4" /> Clear Saved Draft</Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        This action will permanently delete your saved proposal draft from local storage. This cannot be undone.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction onClick={handleClearDraft}>Yes, Clear Draft</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
                 <Button onClick={handleDownload} variant="outline"><Download className="mr-2 h-4 w-4" /> Download (Demo)</Button>
-                <Button onClick={handleSaveDraft} variant="outline"><Save className="mr-2 h-4 w-4" /> Save Draft (Demo)</Button>
               </CardFooter>
             </Card>
           )}
@@ -341,7 +415,6 @@ export default function ProposalAssistantPage() {
               </CardContent>
                <CardFooter className="gap-2">
                 <Button onClick={handleDownload} variant="outline"><Download className="mr-2 h-4 w-4" /> Download (Demo)</Button>
-                <Button onClick={handleSaveDraft} variant="outline"><Save className="mr-2 h-4 w-4" /> Save Draft (Demo)</Button>
               </CardFooter>
             </Card>
           )}
@@ -400,13 +473,16 @@ export default function ProposalAssistantPage() {
         </TabsContent>
       </Tabs>
 
-      {/* Fallback for initial state or empty tabs */}
-      {[isLoadingChapterOutline, isLoadingFullProposal, isLoadingRefineText, isLoadingSuggestCitations].every(loading => !loading) &&
-       ![chapterOutlineResult, fullProposalResult, refineTextResult, suggestCitationsResult].some(result => result) && (
+      {/* Fallback for initial state or empty tabs when no results are loaded and not loading */}
+      {!isLoadingChapterOutline && !chapterOutlineResult &&
+       !isLoadingFullProposal && !fullProposalResult &&
+       !isLoadingRefineText && !refineTextResult &&
+       !isLoadingSuggestCitations && !suggestCitationsResult &&
+       localStorage.getItem(LOCAL_STORAGE_PROPOSAL_DRAFT_KEY) === null && ( // Check if draft is also not loaded
         <Card className="mt-8 text-center p-8 bg-muted/30">
           <FilePenLine className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
           <CardTitle className="text-xl">Proposal Assistant Tools</CardTitle>
-          <CardDescription className="mt-2">Select a tool from the tabs above to get started.</CardDescription>
+          <CardDescription className="mt-2">Select a tool from the tabs above to get started, or load a saved draft if available.</CardDescription>
         </Card>
       )}
     </div>

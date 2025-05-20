@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useMemo, useEffect } from 'react';
@@ -10,6 +11,17 @@ import { Badge } from '@/components/ui/badge';
 import type { PastProject } from '@/lib/types';
 import { Search, ExternalLink } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const MOCK_PROJECTS: PastProject[] = [
   {
@@ -102,10 +114,31 @@ function PastProjectCard({ project }: { project: PastProject }) {
         </div>
       </CardContent>
       <CardFooter>
-        <Button variant="outline" size="sm">
-          <ExternalLink className="mr-2 h-4 w-4" />
-          View Details
-        </Button>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant="outline" size="sm">
+              <ExternalLink className="mr-2 h-4 w-4" />
+              View Details
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>{project.title}</AlertDialogTitle>
+              <AlertDialogDescription className="max-h-[60vh] overflow-y-auto whitespace-pre-line">
+                <strong>Department:</strong> {project.department} ({project.year})<br />
+                {project.supervisor && <><strong>Supervisor:</strong> {project.supervisor}<br /></>}
+                <br />
+                <strong>Abstract:</strong><br />
+                {project.abstract}
+                <br /><br />
+                <strong>Keywords:</strong> {project.keywords.join(', ')}
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Close</AlertDialogCancel>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </CardFooter>
     </Card>
   );
