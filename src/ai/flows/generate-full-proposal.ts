@@ -1,4 +1,3 @@
-// src/ai/flows/generate-full-proposal.ts
 'use server';
 
 /**

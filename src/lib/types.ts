@@ -32,3 +32,12 @@ export interface PastProject {
   fileUrl?: string; // Link to PDF if available
   thumbnailUrl?: string; // For a placeholder image
 }
+
+// export interface ProjectIdea {
+//   title: string;
+//   explanation: string;
+//   researchGap: string;
+//   difficulty?: 'Beginner' | 'Intermediate' | 'Advanced';
+//   estimatedDuration?: string;
+//   requiredSkills?: string[];
+// }
