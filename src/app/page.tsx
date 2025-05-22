@@ -41,7 +41,7 @@ function FeatureCard({
     <Card className="shadow-lg hover:shadow-primary/20 transition-shadow duration-300 flex flex-col">
       <CardHeader className="flex-row items-start lg:gap-4 space-y-0 pb-4">
         <div className="bg-primary/10 p-3 rounded-full hidden lg:block">
-          <Icon className="h-6 w-6 md:w-0 md:h-0 text-primary " />
+          <Icon className="h-6 w-6  text-primary " />
         </div>
         <div>
           <CardTitle className="text-xl text-primary">{title}</CardTitle>
@@ -66,8 +66,8 @@ function FeatureCard({
 
 export default function HomePage() {
   return (
-    <div className="container mx-auto">
-      <div className="h-screen py-12 md:py-4">
+    <div className="px-2 lg:container lg:mx-auto">
+      <div className="md:h-screen py-12 md:py-4 lg:flex lg:flex-col lg:items-center lg:justify-center lg:py-0 ">
         <section className=" text-center">
           <div className="flex items-center gap-3 justify-center mb-2 ">
             <div className="rounded-full bg-primary/10 p-3">
@@ -122,51 +122,53 @@ export default function HomePage() {
         </section>
       </div>
 
-      <div className="h-screen  md:py-10">
-        <PageHeader
-          title="Core Features"
-          description="Discover the tools that will make your project development smoother and more efficient."
-        />
-        <div className="grid grid-cols-1   lg:justify-between sm:grid-cols-2  lg:flex lg:w-[80%] lg:m-auto  gap-6 mb-16">
-          <FeatureCard
-            title="Project Idea Generator"
-            description="Stuck on what to work on? Get AI-powered project suggestions tailored to your interests and department."
-            href="/project-ideas"
-            icon={Lightbulb}
-            ctaText="Generate Ideas"
+      <div className="md:h-screen md:py-10 lg:flex flex-col items-center justify-center  lg:mt-0 lg:py-0">
+        <div className="md:mt-0 lg:mt-2">
+          <PageHeader
+            title="Core Features"
+            description="Discover the tools that will make your project development smoother and more efficient."
           />
-          <FeatureCard
-            title="Proposal Assistant"
-            description="Craft compelling proposals with AI. Generate outlines, draft sections, refine text, and get citation suggestions."
-            href="/proposal-assistant"
-            icon={FileText}
-            ctaText="Craft Proposal"
-          />
-          <FeatureCard
-            title="Past Projects Archive"
-            description="Explore a curated list of past final year projects for inspiration and to understand successful project scopes."
-            href="/past-projects"
-            icon={Archive}
-            ctaText="Browse Archive"
-          />
-        </div>
-        <section className="mt-10 bg-muted/50 rounded-lg">
-          <div className="container mx-auto text-center">
-            <h2 className="lg:text-3xl font-bold text-foreground mb-6">
-              Ready to Start Your Ascent?
-            </h2>
-            <p className="lg:text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-              Let Project Ascent be your guide through the complexities of your
-              final year project.
-            </p>
-            <Link href="/project-ideas" passHref>
-              <Button size="lg" className=" text-accent-foreground">
-                Explore All Features
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
+          <div className="grid grid-cols-1 lg:justify-between sm:grid-cols-2  lg:flex lg:w-[80%] lg:m-auto  gap-6 mb-16">
+            <FeatureCard
+              title="Project Idea Generator"
+              description="Stuck on what to work on? Get AI-powered project suggestions tailored to your interests and department."
+              href="/project-ideas"
+              icon={Lightbulb}
+              ctaText="Generate Ideas"
+            />
+            <FeatureCard
+              title="Proposal Assistant"
+              description="Craft compelling proposals with AI. Generate outlines, draft sections, refine text, and get citation suggestions."
+              href="/proposal-assistant"
+              icon={FileText}
+              ctaText="Craft Proposal"
+            />
+            <FeatureCard
+              title="Past Projects Archive"
+              description="Explore a curated list of past final year projects for inspiration and to understand successful project scopes."
+              href="/past-projects"
+              icon={Archive}
+              ctaText="Browse Archive"
+            />
           </div>
-        </section>
+          <section className="mt-10 bg-muted/50 rounded-lg py-5">
+            <div className="container mx-auto text-center">
+              <h2 className="lg:text-3xl font-bold text-foreground mb-6">
+                Ready to Start Your Ascent?
+              </h2>
+              <p className="lg:text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+                Let Project Ascent be your guide through the complexities of
+                your final year project.
+              </p>
+              <Link href="/project-ideas" passHref>
+                <Button size="lg" className=" text-accent-foreground">
+                  Explore All Features
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   );

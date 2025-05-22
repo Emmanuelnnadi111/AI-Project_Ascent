@@ -8,7 +8,7 @@ interface PageHeaderProps {
 
 export const PageHeader: FC<PageHeaderProps> = ({ title, description, actions }) => {
   return (
-    <div className="mb-6 md:mb-8  ">
+    <div className="mb-6  ">
       <div className=" flex flex-col  md:flex-row md:items-center md:justify-between gap-4">
         <div className=' m-auto'>
           <h2 className="text-2xl font-bold  md:text-3xl text-foreground text-center">
