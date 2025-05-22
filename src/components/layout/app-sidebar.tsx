@@ -17,7 +17,6 @@ const navItems = [
   { href: '/project-ideas', label: 'Project Ideas', icon: Lightbulb },
   { href: '/proposal-assistant', label: 'Proposal Assistant', icon: FileText },
   { href: '/past-projects', label: 'Past Projects', icon: Archive },
-  { href: '/plagiarism-checker', label: 'Plagiarism Checker', icon: ShieldCheck },
 ];
 
 export function AppSidebar() {

@@ -8,6 +8,7 @@ import { PageHeader } from '@/components/page-header';
 import { Lightbulb, FileText, Archive, ShieldCheck, ArrowRight, BrainCircuit } from 'lucide-react';
 import Image from 'next/image';
 import { Separator } from '@/components/ui/separator';
+import HeroImage from '/public/hero-image.jpg'
 
 interface FeatureCardProps {
   title: string;
@@ -58,7 +59,7 @@ export default function HomePage() {
         </p>
         <div className="relative w-full max-w-3xl mx-auto h-64 md:h-80 rounded-xl overflow-hidden shadow-2xl mb-12">
             <Image
-                src="https://placehold.co/1200x600.png"
+                src={HeroImage}
                 alt="Students collaborating on a project"
                 layout="fill"
                 objectFit="cover"
