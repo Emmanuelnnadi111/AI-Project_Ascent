@@ -41,7 +41,7 @@ export function AppSidebar() {
                   asChild
                   isActive={pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href))}
                   tooltip={{ children: item.label }}
-                  className="justify-start"
+                  className="justify-start "
                 >
                   <a>
                     <item.icon className="h-5 w-5" />
