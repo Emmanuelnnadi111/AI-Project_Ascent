@@ -1,5 +1,5 @@
 
-"use client"; // This component handles client-side logic
+"use client"; 
 
 import { SidebarProvider, Sidebar, SidebarInset } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/layout/app-sidebar';

@@ -1,61 +1,84 @@
 'use server';
 
-import { ai } from '@/ai/genkit';
-import { z } from 'zod';
+import { ai } from "@/ai/genkit";
+import { z } from "zod";
 
 const GenerateProjectIdeasInputSchema = z.object({
-  department: z.string().describe('The student\'s department.'),
-  interests: z.string().describe('The student\'s areas of interest.'),
+  department: z.string().describe("The student's department."),
+  interests: z.string().describe("The student's areas of interest."),
 });
 
-export type GenerateProjectIdeasInput = z.infer<typeof GenerateProjectIdeasInputSchema>;
+export type GenerateProjectIdeasInput = z.infer<
+  typeof GenerateProjectIdeasInputSchema
+>;
 
 const GenerateProjectIdeasOutputSchema = z.object({
   projectIdeas: z
     .array(
       z.object({
-        title: z.string().describe('The title of the project idea.'),
-        explanation: z.string().describe('A short explanation of the project idea.'),
-        researchGap: z.string().describe('A potential research gap for the project.'),
-        difficulty: z.enum(['Beginner', 'Intermediate', 'Advanced']).optional(),
-        estimatedDuration: z.string().optional().describe('Estimated time to complete'),
-        requiredSkills: z.array(z.string()).optional().describe('Skills needed for the project'),
+        title: z.string().describe("The title of the project idea."),
+        explanation: z
+          .string()
+          .describe("A short explanation of the project idea."),
+        researchGap: z
+          .string()
+          .describe("A potential research gap for the project."),
+        difficulty: z.enum(["Beginner", "Intermediate", "Advanced"]).optional(),
+        estimatedDuration: z
+          .string()
+          .optional()
+          .describe("Estimated time to complete"),
+        requiredSkills: z
+          .array(z.string())
+          .optional()
+          .describe("Skills needed for the project"),
       })
     )
-    .describe('A list of project ideas.'),
+    .describe("A list of project ideas."),
 });
 
-export type GenerateProjectIdeasOutput = z.infer<typeof GenerateProjectIdeasOutputSchema>;
+export type GenerateProjectIdeasOutput = z.infer<
+  typeof GenerateProjectIdeasOutputSchema
+>;
 
-export async function generateProjectIdeas(input: GenerateProjectIdeasInput): Promise<GenerateProjectIdeasOutput> {
+export async function generateProjectIdeas(
+  input: GenerateProjectIdeasInput
+): Promise<GenerateProjectIdeasOutput> {
   try {
     // Validate input
     if (!input.department?.trim()) {
-      throw new Error('Department field is required');
+      throw new Error("Department field is required");
     }
     if (!input.interests?.trim()) {
-      throw new Error('Interests field is required');
+      throw new Error("Interests field is required");
     }
-    
+
     return await generateProjectIdeasFlow(input);
   } catch (error: any) {
-    console.error('Error in generateProjectIdeas:', error);
-    
+    console.error("Error in generateProjectIdeas:", error);
+
     // Re-throw with user-friendly message
-    if (error.message.includes('API_KEY') || error.message.includes('QUOTA') || error.message.includes('RATE_LIMIT')) {
+    if (
+      error.message.includes("API_KEY") ||
+      error.message.includes("QUOTA") ||
+      error.message.includes("RATE_LIMIT")
+    ) {
       throw error;
       // Pass through API-specific errors
     }
-    
-    throw new Error(error.message || 'Failed to generate project ideas. Please check your input and try again.');
+
+    throw new Error(
+      error.message ||
+        "Failed to generate project ideas. Please check your input and try again."
+    );
   }
 }
 
 const prompt = ai.definePrompt({
-  name: 'generateProjectIdeasPrompt',
+  name: "generateProjectIdeasPrompt",
   input: { schema: GenerateProjectIdeasInputSchema },
   output: { schema: GenerateProjectIdeasOutputSchema },
-  prompt: `You are an expert academic advisor and project supervisor with extensive experience in guiding final year students.
+  prompt: `You are an expert academic advisor and project HOD with extensive experience in guiding final year students.
 
 STUDENT PROFILE:
 - Department: {{department}}
@@ -88,63 +111,79 @@ FOCUS AREAS TO CONSIDER:
 - Data science and analytics
 - Mobile and web technologies
 
-Generate 6 distinct project ideas that would impress academic supervisors and industry professionals.`,
+Generate 6 distinct project ideas that would impress academic HODs and industry professionals.`,
 });
 
 const generateProjectIdeasFlow = ai.defineFlow(
   {
-    name: 'generateProjectIdeasFlow',
+    name: "generateProjectIdeasFlow",
     inputSchema: GenerateProjectIdeasInputSchema,
     outputSchema: GenerateProjectIdeasOutputSchema,
   },
   async (input) => {
     // Add retry logic for better reliability
     let lastError: Error | null = null;
-    
+
     for (let attempt = 1; attempt <= 3; attempt++) {
       try {
-        console.log(`Attempt ${attempt} to generate project ideas for ${input.department}`);
-        
+        console.log(
+          `Attempt ${attempt} to generate project ideas for ${input.department}`
+        );
+
         const { output } = await prompt(input);
-        
+
         // Validate the output
-        if (!output || !output.projectIdeas || output.projectIdeas.length === 0) {
-          throw new Error('No project ideas were generated');
+        if (
+          !output ||
+          !output.projectIdeas ||
+          output.projectIdeas.length === 0
+        ) {
+          throw new Error("No project ideas were generated");
         }
-        
+
         // Ensure each project has required fields
-        const validatedIdeas = output.projectIdeas.map((idea: any, index: number) => ({
-          title: idea.title || `Project Idea ${index + 1}`,
-          explanation: idea.explanation || 'Project explanation not provided',
-          researchGap: idea.researchGap || 'Research gap to be identified',
-          difficulty: idea.difficulty || 'Intermediate',
-          estimatedDuration: idea.estimatedDuration || '6-8 months',
-          requiredSkills: Array.isArray(idea.requiredSkills) ? idea.requiredSkills : ['Research', 'Analysis', 'Implementation'],
-        }));
-        
-        console.log(`Successfully generated ${validatedIdeas.length} project ideas`);
-        
+        const validatedIdeas = output.projectIdeas.map(
+          (idea: any, index: number) => ({
+            title: idea.title || `Project Idea ${index + 1}`,
+            explanation: idea.explanation || "Project explanation not provided",
+            researchGap: idea.researchGap || "Research gap to be identified",
+            difficulty: idea.difficulty || "Intermediate",
+            estimatedDuration: idea.estimatedDuration || "6-8 months",
+            requiredSkills: Array.isArray(idea.requiredSkills)
+              ? idea.requiredSkills
+              : ["Research", "Analysis", "Implementation"],
+          })
+        );
+
+        console.log(
+          `Successfully generated ${validatedIdeas.length} project ideas`
+        );
+
         return { projectIdeas: validatedIdeas };
-        
       } catch (error: any) {
         lastError = error;
         console.error(`Attempt ${attempt} failed:`, error.message);
-        
+
         // Don't retry on certain errors
-        if (error.message.includes('API_KEY') || 
-            error.message.includes('QUOTA_EXCEEDED') || 
-            error.message.includes('invalid')) {
+        if (
+          error.message.includes("API_KEY") ||
+          error.message.includes("QUOTA_EXCEEDED") ||
+          error.message.includes("invalid")
+        ) {
           break;
         }
-        
+
         // Wait before retry (except on last attempt)
         if (attempt < 3) {
-          await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+          await new Promise((resolve) => setTimeout(resolve, 1000 * attempt));
         }
       }
     }
-    
+
     // If all retries failed, throw the last error
-    throw lastError || new Error('Failed to generate project ideas after multiple attempts');
+    throw (
+      lastError ||
+      new Error("Failed to generate project ideas after multiple attempts")
+    );
   }
 );
