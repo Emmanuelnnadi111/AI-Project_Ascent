@@ -1,5 +1,4 @@
-// src/ai/flows/generate-project-ideas.ts
-"use server";
+'use server';
 
 import { ai } from "@/ai/genkit";
 import { z } from "zod";
