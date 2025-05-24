@@ -1,10 +1,23 @@
-import type { GenerateProjectIdeasOutput } from '@/ai/flows/generate-project-ideas';
-import type { CreateChapterOutlineOutput, CreateChapterOutlineInput } from '@/ai/flows/create-chapter-outline';
-import type { GenerateFullProposalOutput, GenerateFullProposalInput } from '@/ai/flows/generate-full-proposal';
-import type { RefineProposalTextOutput, RefineProposalTextInput } from '@/ai/flows/refine-proposal-text';
-import type { SuggestCitationsOutput, SuggestCitationsInput } from '@/ai/flows/suggest-citations';
+import type { GenerateProjectIdeasOutput } from "@/ai/flows/generate-project-ideas";
+import type {
+  CreateChapterOutlineOutput,
+  CreateChapterOutlineInput,
+} from "@/ai/flows/create-chapter-outline";
+import type {
+  GenerateFullProposalOutput,
+  GenerateFullProposalInput,
+} from "@/ai/flows/generate-full-proposal";
+import type {
+  RefineProposalTextOutput,
+  RefineProposalTextInput,
+} from "@/ai/flows/refine-proposal-text";
+import type {
+  SuggestCitationsOutput,
+  SuggestCitationsInput,
+} from "@/ai/flows/suggest-citations";
+import { StaticImageData } from "next/image";
 
-export type ProjectIdea = GenerateProjectIdeasOutput['projectIdeas'][0];
+export type ProjectIdea = GenerateProjectIdeasOutput["projectIdeas"][0];
 
 export type ChapterOutline = CreateChapterOutlineOutput;
 export type ChapterOutlineInput = CreateChapterOutlineInput;
@@ -18,7 +31,6 @@ export type RefinedTextInput = RefineProposalTextInput;
 export type CitationSuggestion = SuggestCitationsOutput;
 export type CitationSuggestionInput = SuggestCitationsInput;
 
-
 export interface PastProject {
   id: string;
   title: string;
@@ -26,18 +38,9 @@ export interface PastProject {
   year: number;
   department: string;
   keywords: string[];
-  supervisor?: string;
+  HOD?: string;
   studentName?: string;
   grade?: string;
   fileUrl?: string; // Link to PDF if available
-  thumbnailUrl?: string; // For a placeholder image
+  thumbnailUrl?: string | StaticImageData; // For a placeholder image
 }
-
-// export interface ProjectIdea {
-//   title: string;
-//   explanation: string;
-//   researchGap: string;
-//   difficulty?: 'Beginner' | 'Intermediate' | 'Advanced';
-//   estimatedDuration?: string;
-//   requiredSkills?: string[];
-// }

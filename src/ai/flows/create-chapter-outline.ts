@@ -32,18 +32,18 @@ export async function createChapterOutline(input: CreateChapterOutlineInput): Pr
 }
 
 const prompt = ai.definePrompt({
-  name: 'createChapterOutlinePrompt',
-  input: {schema: CreateChapterOutlineInputSchema},
-  output: {schema: CreateChapterOutlineOutputSchema},
+  name: "createChapterOutlinePrompt",
+  input: { schema: CreateChapterOutlineInputSchema },
+  output: { schema: CreateChapterOutlineOutputSchema },
   prompt: `Based on this project title or abstract: "{{projectTitleOrAbstract}}", create a typical 6-chapter outline for a final year report.
 Each chapter should have a title and a short description of its expected content.
 The chapters should be:
 1. Introduction
 2. Literature Review
-3. Methodology
-4. Implementation/Development (or System Design / Analysis, if more appropriate)
-5. Results & Discussion
-6. Conclusion & Recommendations
+3. Methodologies And System Analysis METHODOLOGIES AND SYSTEM ANALYSIS
+4. System Design
+5. System Implementation And Documentation
+6. Summary, Conclusion And Recommendation
 
 Return the response as a JSON object with a "chapters" array, where each element is an object with "title" and "description" fields.`,
 });
