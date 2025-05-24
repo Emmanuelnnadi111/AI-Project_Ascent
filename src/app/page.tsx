@@ -66,7 +66,7 @@ function FeatureCard({
 
 export default function HomePage() {
   return (
-    <div className="px-2 lg:container lg:mx-auto">
+    <div className="px-4 lg:container lg:mx-auto">
       <div className="md:h-screen py-12 md:py-4 lg:flex lg:flex-col lg:items-center lg:justify-center lg:py-0 ">
         <section className=" text-center">
           <div className="flex items-center gap-3 justify-center mb-2 ">

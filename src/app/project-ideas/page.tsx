@@ -56,7 +56,7 @@ function ProjectIdeaCard({ idea, index }: { idea: EnhancedProjectIdea; index: nu
   };
 
   return (
-    <Card className="shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col border-l-4 border-l-blue-500">
+    <Card className="shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col border-l-4 border-l-blue-400">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-2 mb-2">
@@ -241,7 +241,7 @@ export default function ProjectIdeasPage() {
         description="Discover innovative final year project ideas tailored to your interests and department. Powered by Google Gemini AI."
       />
       
-      <Card className="shadow-md border-t-4 border-t-blue-500">
+      <Card className="shadow-md border-t-4 border-t-blue-400">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Wand2 className="h-5 w-5 text-blue-500" />
@@ -332,7 +332,7 @@ export default function ProjectIdeasPage() {
               Your Personalized Project Ideas
             </h3>
             <p className="text-muted-foreground">
-              Here are {projectIdeas.length} innovative projects tailored just for you!
+              Here are {projectIdeas.length} innovative projects tailored just for you
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

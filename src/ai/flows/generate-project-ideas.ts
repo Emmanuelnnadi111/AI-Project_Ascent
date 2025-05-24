@@ -89,7 +89,7 @@ TASK: Generate exactly 6 unique, innovative, and academically rigorous final yea
 REQUIREMENTS FOR EACH PROJECT:
 1. Must be appropriate for final year undergraduate/graduate level
 2. Should address a real-world problem or significant research gap
-3. Must be feasible to complete in 6-12 months
+3. Must be feasible to complete in either 1 or 2 months
 4. Should align with current industry trends and academic standards
 5. Must be original and avoid generic project titles
 
@@ -99,7 +99,7 @@ SPECIFIC GUIDELINES:
 - Research gaps should be specific and well-defined
 - Include appropriate difficulty level based on project complexity
 - Estimate realistic completion time
-- List 3-5 essential skills/technologies needed
+- List 3-5 essential and simple skills/technologies needed
 
 FOCUS AREAS TO CONSIDER:
 - Emerging technologies (AI, IoT, Blockchain, AR/VR, etc.)
