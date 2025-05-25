@@ -91,7 +91,6 @@ export default function HomePage() {
               objectPosition="center"
               objectFit="cover"
               data-ai-hint="academic project"
-     
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
             <div className="absolute bottom-6 left-6 text-left">
@@ -170,11 +169,15 @@ export default function HomePage() {
                 </Button>
               </Link>
             </div>
+            <div className="text-center md:text-sm text-muted-foreground flex flex-row items-center justify-center pt-3">
+              <p>
+                <Copyright size={14} />
+              </p>
+              <p className="copyright md:text-sm">
+                Copyright 2025 XimDal Developers. All Rights Reserved
+              </p>
+            </div>
           </section>
-
-          <p className="text-center text-sm text-muted-foreground flex items-center justify-center py-2">
-            <Copyright className="" size={14}/> Copyright 2025 XimDal Developers. All Rights Reserved
-          </p>
         </div>
       </div>
     </div>

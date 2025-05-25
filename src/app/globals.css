@@ -93,3 +93,8 @@
     box-shadow: 0 4px 14px 0 hsl(var(--primary) / 0.15);
   }
 }
+
+
+.copyright {
+  font-size: 10px;
+}
