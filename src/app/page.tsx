@@ -169,14 +169,11 @@ export default function HomePage() {
                 </Button>
               </Link>
             </div>
-            <div className="text-center md:text-sm text-muted-foreground flex flex-row items-center justify-center pt-3">
-              <p>
-                <Copyright size={14} />
+          
+              <p className="text-center text-xs md:text-sm text-muted-foreground flex  items-center justify-center pt-3">
+                &copy; Copyright 2025 XimDal Developers. All Rights Reserved
               </p>
-              <p className="copyright md:text-sm">
-                Copyright 2025 XimDal Developers. All Rights Reserved
-              </p>
-            </div>
+           
           </section>
         </div>
       </div>
