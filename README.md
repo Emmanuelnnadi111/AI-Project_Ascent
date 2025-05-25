@@ -1,6 +1,6 @@
 # Project Ascent - AI-Powered Final Year Project Assistant
 
-Project Ascent is a web application designed to assist final year university students throughout their project lifecycle, from ideation to proposal writing. It leverages Generative AI to provide tools that streamline research, drafting, and refinement processes.
+Project Ascent is a web application designed to assist final year students throughout their project lifecycle, from ideation to proposal writing. It leverages Generative AI to provide tools that streamline research, drafting, and refinement processes.
 
 ## Key Features
 
@@ -20,9 +20,7 @@ The application offers a suite of tools to support students:
     *   Allows students to browse and search through a (currently mock) database of past final year projects for inspiration and to understand project scopes and standards.
     *   Features filtering by department, year, and keyword search.
 
-4.  **Plagiarism Checker (Demo):**
-    *   Provides a demonstrative tool for students to check their text for similarity against a mock database of past projects.
-    *   Outputs a similarity score and a qualitative assessment.
+
 
 ## Technology Stack
 
@@ -39,6 +37,5 @@ To explore the application:
     *   `/project-ideas`
     *   `/proposal-assistant`
     *   `/past-projects`
-    *   `/plagiarism-checker`
 
-This project is developed in Firebase Studio.
+This project is developed by XimDal Developers.

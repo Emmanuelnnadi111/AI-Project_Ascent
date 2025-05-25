@@ -16,10 +16,11 @@ import {
   Archive,
   ArrowRight,
   BrainCircuit,
+  Copyright,
 } from "lucide-react";
 import Image from "next/image";
-import HeroImage from "/public/hero-image.jpg";
-import { useState } from "react";
+import HeroImage from "/public/students with project.jpg";
+
 
 interface FeatureCardProps {
   title: string;
@@ -86,9 +87,11 @@ export default function HomePage() {
             <Image
               src={HeroImage}
               alt="Students collaborating on a project"
-              layout="fill"
+              fill
+              objectPosition="center"
               objectFit="cover"
               data-ai-hint="academic project"
+     
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
             <div className="absolute bottom-6 left-6 text-left">
@@ -168,6 +171,10 @@ export default function HomePage() {
               </Link>
             </div>
           </section>
+
+          <p className="text-center text-sm text-muted-foreground flex items-center justify-center py-2">
+            <Copyright className="" size={14}/> Copyright 2025 XimDal Developers. All Rights Reserved
+          </p>
         </div>
       </div>
     </div>
