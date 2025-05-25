@@ -35,9 +35,7 @@ import {
 } from "@/components/ui/alert-dialog";
 
 import ImageDoc from "../../assets/Microsoft Word Icon on Gray Background.png";
-const imageItem = {
-  thumbnailUrl: ImageDoc,
-};
+
 const MOCK_PROJECTS: PastProject[] = [
   {
     id: "1",
@@ -571,8 +569,12 @@ function PastProjectCard({ project }: { project: PastProject }) {
       <CardFooter>
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button variant="outline" size="sm">
-              <ExternalLink className="mr-2 h-4 w-4" />
+            <Button
+              variant="outline"
+              size="sm"
+              className="hover:bg-primary "
+            >
+              <ExternalLink className="mr-2 h-4 w-4 " />
               View Details
             </Button>
           </AlertDialogTrigger>
@@ -598,7 +600,9 @@ function PastProjectCard({ project }: { project: PastProject }) {
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Close</AlertDialogCancel>
+              <AlertDialogCancel className="hover:bg-primary">
+                Close
+              </AlertDialogCancel>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
@@ -664,7 +668,7 @@ export default function PastProjectsPage() {
               <Input
                 type="search"
                 placeholder="Search by title, keyword, or abstract..."
-                className="pl-10 w-full"
+                className="pl-10 w-full "
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -672,13 +676,14 @@ export default function PastProjectsPage() {
             <Select
               value={selectedDepartment}
               onValueChange={setSelectedDepartment}
+              
             >
               <SelectTrigger className="w-full md:w-auto">
                 <SelectValue placeholder="Filter by Department" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="">
                 {departments.map((dept) => (
-                  <SelectItem key={dept} value={dept}>
+                  <SelectItem key={dept} value={dept} className="hover:bg-primary">
                     {dept === "all" ? "All Departments" : dept}
                   </SelectItem>
                 ))}
