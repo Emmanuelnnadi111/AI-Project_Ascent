@@ -171,7 +171,7 @@ export default function HomePage() {
             </div>
           
               <p className="text-center text-xs md:text-sm text-muted-foreground flex  items-center justify-center pt-3">
-                &copy; Copyright 2025 XimDal Developers. All Rights Reserved
+                &copy; Copyright 2025 Osmaxin Developers. All Rights Reserved
               </p>
            
           </section>
