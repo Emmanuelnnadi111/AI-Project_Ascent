@@ -38,4 +38,4 @@ To explore the application:
     *   `/proposal-assistant`
     *   `/past-projects`
 
-This project is developed by XimDal Developers.
+This project is developed by Osmaxin Developers.
